@@ -1,0 +1,17 @@
+/* Your Custom CSS Goes here */
+.btn-icons{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    padding-top: 18px;
+    border-radius: 50%;
+    font-size: 25px;
+    margin-bottom: 15px;
+    margin-left: 8px;
+    transition: 0.3s ease-in-out;
+}
+.btn-animation{
+    box-shadow: 0 !important;
+    background-color: gray !important;
+}
