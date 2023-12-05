@@ -4,6 +4,13 @@
         <div class="content-wrapper">
             <div class="container">
                 <div class="row">
+                    <div class="col">
+                        <div class="page-description">
+                            <h1>Brand Edit</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-xl-8 offset-xl-2">
                         <div class="card">
                             <div class="card-body">

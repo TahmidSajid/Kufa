@@ -4,13 +4,21 @@
         <div class="content-wrapper">
             <div class="container">
                 <div class="row">
+                    <div class="col">
+                        <div class="page-description">
+                            <h1>Edit Degree</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-xl-6 offset-xl-3">
                         <div class="card widget widget-stats">
                             <div class="card-body">
                                 <div class="row">
                                     <h4>Edit Degree</h4>
-                                    <form action="{{ route('upload_degree') }}" class="row g-3" method="POST">
+                                    <form action="{{ route('education.update',$edu->id) }}" class="row g-3" method="POST">
                                         @csrf
+                                        @method('PUT')
                                         <div class="col-lg-6">
                                             <label for="customRange1" class="form-label">Degree name</label>
                                             <input type="text" class="form-control" name="degree_name" placeholder="Degree name" value="{{ $edu->degree_name }}">

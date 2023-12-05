@@ -51,7 +51,7 @@ class BrandsController extends Controller
             ]);
         }
 
-        return back();
+        return back()->with('alerting','New brand added');
     }
 
     /**
@@ -90,7 +90,7 @@ class BrandsController extends Controller
                 "brand_image" => $new_image,
             ]);
         }
-        return redirect(route('brand.index'));
+        return redirect(route('brand.index'))->with('alerting','New brand Updated');
     }
 
     /**
@@ -100,6 +100,6 @@ class BrandsController extends Controller
     {
         unlink(base_path('public/uploads/brand_images/'.$brand->brand_image));
         Brands::where('id',$brand->id)->delete();
-        return back();
+        return back()->with('alerting','New brand deleted');
     }
 }

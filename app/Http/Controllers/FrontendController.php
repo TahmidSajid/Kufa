@@ -17,26 +17,37 @@ use App\Mail\ContactsMail;
 use App\Models\ContactEmails;
 use App\Models\Emails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
     public function fronend_page(){
+        if(Auth::check()){
 
-        $contact_info = Contacts::where('user_id',auth()->user()->id)->first();
-        $city = explode(",",$contact_info->address)[1];
+            $contact_info = Contacts::where('user_id',auth()->user()->id)->first();
+            if($contact_info){
+                $city = explode(",",$contact_info->address)[1];
+            }
+            else{
+                $city = false;
+            }
+            return view('frontend.index')->with([
+                'banner' => Banners::where('user_id',auth()->user()->id)->where('status','active')->get(),
+                'socials' => Socials::where('user_id',auth()->user()->id)->get(),
+                'educations' => Educations::where('user_id',auth()->user()->id)->get(),
+                'services' => Services::where('user_id',auth()->user()->id)->get(),
+                'portfolios' => Portfolios::where('user_id',auth()->user()->id)->get(),
+                'facts' => Facts::where('user_id',auth()->user()->id)->get(),
+                'testimonials' => Testimonials::where('user_id',auth()->user()->id)->get(),
+                'brands' => Brands::where('user_id',auth()->user()->id)->get(),
+                'contact_info' => Contacts::where('user_id',auth()->user()->id)->first(),
+                'city' => $city,
+            ]);
+        }
+        else{
+            return redirect(route('login'));
+        }
 
-        return view('frontend.index')->with([
-            'banner' => Banners::where('user_id',auth()->user()->id)->where('status','active')->get(),
-            'socials' => Socials::where('user_id',auth()->user()->id)->get(),
-            'educations' => Educations::where('user_id',auth()->user()->id)->get(),
-            'services' => Services::where('user_id',auth()->user()->id)->get(),
-            'portfolios' => Portfolios::where('user_id',auth()->user()->id)->get(),
-            'facts' => Facts::where('user_id',auth()->user()->id)->get(),
-            'testimonials' => Testimonials::where('user_id',auth()->user()->id)->get(),
-            'brands' => Brands::where('user_id',auth()->user()->id)->get(),
-            'contact_info' => Contacts::where('user_id',auth()->user()->id)->first(),
-            'city' => $city,
-        ]);
     }
     public function portfolio_page($id){
 

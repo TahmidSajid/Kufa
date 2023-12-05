@@ -62,6 +62,6 @@ class EmailsController extends Controller
     public function destroy(Emails $email)
     {
         Emails::where('id',$email->id)->delete();
-        return back();
+        return back()->with('alerting','Email deleted');
     }
 }

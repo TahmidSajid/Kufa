@@ -4,6 +4,13 @@
         <div class="content-wrapper">
             <div class="container">
                 <div class="row">
+                    <div class="col">
+                        <div class="page-description">
+                            <h1>Brand List</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-xl-8 offset-xl-2">
                         <div class="card">
                             <div class="card-body">
@@ -76,4 +83,25 @@
             </div>
         </div>
     </div>
+@endsection
+@section('alertSweet')
+    @if (session('alerting'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "{{ session('alerting') }}"
+            });
+        </script>
+    @endif
 @endsection

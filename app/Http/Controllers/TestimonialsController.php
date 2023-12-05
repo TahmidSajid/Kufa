@@ -48,7 +48,7 @@ class TestimonialsController extends Controller
                 'customer_image'=> $new_image,
             ]);
         }
-        return back();
+        return redirect(route('testimonial.index'))->with('alerting','Testimonial added');
     }
 
     /**
@@ -88,7 +88,7 @@ class TestimonialsController extends Controller
             'customer_image'=> $new_image,
             ]);
         }
-        return redirect(route('testimonial.index'));
+        return redirect(route('testimonial.index'))->with('alerting','Testimonial Updated');
     }
 
     /**
@@ -101,6 +101,6 @@ class TestimonialsController extends Controller
             unlink(base_path('public/uploads/customer_images/'.$old_image));
         }
         Testimonials::where('id',$testimonial->id)->delete();
-        return redirect(route('testimonial.index'));
+        return redirect(route('testimonial.index'))->with('alerting','Testimonial Deleted');
     }
 }

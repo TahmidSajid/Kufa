@@ -28,6 +28,7 @@ class HomeController extends Controller
     {
         return view('dashboard.home')->with([
             'socials' => Socials::where('user_id',auth()->user()->id)->get(),
+            'log_in'=> 'logged in'
         ]);
     }
     public function about_me()

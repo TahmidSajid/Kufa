@@ -31,7 +31,7 @@ class SocialsController extends Controller
         Socials::create($request->except('_token')+[
             'user_id' => auth()->user()->id,
         ]);
-        return back();
+        return back()->with('alerting','A new Social media account added');
     }
 
     /**
@@ -64,6 +64,6 @@ class SocialsController extends Controller
     public function destroy(Socials $social)
     {
         Socials::where('id',$social->id)->delete();
-        return back();
+        return back()->with('alerting','A Social media account deleted');
     }
 }

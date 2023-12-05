@@ -37,7 +37,7 @@ class FactsController extends Controller
         Facts::create($request->except('_token')+[
             'user_id' => auth()->user()->id,
         ]);
-        return back();
+        return back()->with('alerting','Fact added');
     }
 
     /**
@@ -74,7 +74,7 @@ class FactsController extends Controller
             'fact_icon'=> $request->fact_icon,
         ]);
 
-        return redirect(route('fact.index'));
+        return redirect(route('fact.index'))->with('alerting','Fact updated');
 
     }
 
@@ -84,6 +84,6 @@ class FactsController extends Controller
     public function destroy(Facts $fact)
     {
         Facts::where('id',$fact->id)->delete();
-        return back();
+        return back()->with('alerting','Fact deleted');
     }
 }

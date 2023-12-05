@@ -51,7 +51,7 @@ class BannersController extends Controller
                 "banner_image" => $new_image,
             ]);
         }
-        return redirect(route('banner.index'));
+        return redirect(route('banner.index'))->with('alerting','Banner added');
     }
 
     /**
@@ -96,7 +96,7 @@ class BannersController extends Controller
                 "banner_image" => $new_image,
             ]);
         }
-        return redirect(route('banner.index'));
+        return redirect(route('banner.index'))->with('alerting','Banner Updated');
     }
 
     /**
@@ -106,6 +106,6 @@ class BannersController extends Controller
     {
         unlink(base_path('public/uploads/banner_images/'.$banner->banner_image));
         Banners::where('id',$banner->id)->delete();
-        return redirect(route('banner.index'));
+        return redirect(route('banner.index'))->with('alerting','Banner deleted');
     }
 }

@@ -38,7 +38,7 @@ class EducationController extends Controller
             'skill'=> $request->skill,
             'user_id'=> auth()->user()->id,
         ]);
-        return back();
+        return back()->with('alerting','A degree added');
     }
 
     /**
@@ -63,7 +63,17 @@ class EducationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'degree_name' => 'required',
+            'year' => 'required',
+        ]);
+        Educations::where('id',$id)->update([
+            'degree_name' => $request->degree_name,
+            'year'=> $request->year,
+            'skill'=> $request->skill,
+            'user_id'=> auth()->user()->id,
+        ]);
+        return redirect(route('about_me'))->with('alerting','A degree updated');
     }
 
     /**
@@ -71,6 +81,7 @@ class EducationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Educations::where('id',$id)->delete();
+        return redirect(route('about_me'))->with('alerting','A degree Deleted');
     }
 }

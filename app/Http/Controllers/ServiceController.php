@@ -33,7 +33,7 @@ class ServiceController extends Controller
         Services::create($request->except('_token')+[
             'user_id' => auth()->user()->id,
         ]);
-        return back();
+        return back()->with('alerting','New service added');
     }
 
     /**
@@ -64,7 +64,7 @@ class ServiceController extends Controller
             'service_icon'=> $request->service_icon,
             'service_description'=> $request->service_description,
         ]);
-        return back();
+        return redirect(route('services.index'))->with('alerting','service updated');
     }
 
     /**
@@ -73,6 +73,6 @@ class ServiceController extends Controller
     public function destroy(string $id)
     {
         Services::where('id',$id)->delete();
-        return back();
+        return redirect(route('services.index'))->with('alerting','service deleted');
     }
 }

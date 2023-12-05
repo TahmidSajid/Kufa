@@ -4,6 +4,13 @@
         <div class="content-wrapper">
             <div class="container">
                 <div class="row">
+                    <div class="col">
+                        <div class="page-description">
+                            <h1>Profile</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-xl-3">
                         <div class="card widget widget-stats">
                             <div class="card-body">
@@ -85,7 +92,7 @@
                                 @foreach ($socials as $social)
                                 <div class="card widget widget-stats">
                                     <div class="card-body">
-                                        <div class="widget-stats-container d-flex">
+                                        <div class="widget-stats-container d-flex align-items-center">
                                             <div class="widget-stats-icon widget-stats-icon-primary">
                                                 <i class="{{ $social->social_media_icon }}"></i>
                                             </div>
@@ -94,6 +101,13 @@
                                                 <span class="widget-stats-amount"
                                                     style="font-size: 15px">{{ $social->social_media_name }}</span>
                                                 <span class="widget-stats-info">{{ Str::limit($social->social_media_link, 8) }}</span>
+                                            </div>
+                                            <div class="widget-stats-content">
+                                                <form action="{{ route('social.destroy',$social->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -127,7 +141,6 @@
                                 </div>
                                 <h5 class="mt-4">Select Icon From here:</h5>
                                 <div class="all-icons mt-4" style="overflow-y: scroll; height:300px">
-
                                 </div>
                             </div>
                         </div>
@@ -136,4 +149,25 @@
             </div>
         </div>
     </div>
+@endsection
+@section('alertSweet')
+    @if (session('alerting'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "{{ session('alerting') }}"
+            });
+        </script>
+    @endif
 @endsection

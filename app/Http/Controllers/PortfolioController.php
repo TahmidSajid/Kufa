@@ -63,7 +63,7 @@ class PortfolioController extends Controller
             ]);
         }
 
-        return back();
+        return redirect(route('portfolio.index'))->with('alerting','portfolio added');
     }
 
     /**
@@ -94,7 +94,6 @@ class PortfolioController extends Controller
             "portfolio_name" => 'required',
             "portfolio_heading" => 'required',
             "portfolio_description" => 'required',
-            "portfolio_image" => 'required|file',
         ]);
         Portfolios::where('id',$id)->update([
             'category'=> $request->category,
@@ -117,7 +116,7 @@ class PortfolioController extends Controller
                 "portfolio_image" => $new_image,
             ]);
         }
-        return redirect(route('portfolio.index'));
+        return redirect(route('portfolio.index'))->with('alerting','portfolio updated');
 
     }
 
@@ -129,6 +128,6 @@ class PortfolioController extends Controller
         $image = Portfolios::where('id',$id)->first('portfolio_image');
         unlink(base_path('public/uploads/portfolio_images/'.$image['portfolio_image']));
         Portfolios::where('id',$id)->delete();
-        return back();
+        return back()->with('alerting','portfolio deleted');
     }
 }

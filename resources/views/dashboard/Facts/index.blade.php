@@ -54,7 +54,7 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <input type="text" class="form-control" name="fact_icon"
-                                                placeholder="Fact icon" id="icon-input">
+                                                placeholder="Fact icon" id="icon-input" readonly style="background: transparent">
                                         </div>
                                         <div class="col-lg-6">
                                             <button class="btn btn-primary">Add Fact</button>
@@ -72,4 +72,25 @@
             </div>
         </div>
     </div>
+@endsection
+@section('alertSweet')
+    @if (session('alerting'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "{{ session('alerting') }}"
+            });
+        </script>
+    @endif
 @endsection

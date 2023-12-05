@@ -4,6 +4,13 @@
         <div class="content-wrapper">
             <div class="container">
                 <div class="row">
+                    <div class="col">
+                        <div class="page-description">
+                            <h1>Service</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     @foreach ($services as $service)
                     <div class="col-xl-4">
                         <div class="card text-center">
@@ -46,7 +53,7 @@
                                         <div class="widget-stats-content">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Service Icon</label>
                                             <input class="form-control form-control-material" type="text" id="icon-input"
-                                                name="service_icon">
+                                                name="service_icon" readonly style="background: transparent">
                                         </div>
                                         <div class="widget-stats-content">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Service
@@ -70,4 +77,25 @@
             </div>
         </div>
     </div>
+@endsection
+@section('alertSweet')
+    @if (session('alerting'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "{{ session('alerting') }}"
+            });
+        </script>
+    @endif
 @endsection

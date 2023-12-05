@@ -41,7 +41,7 @@ class ContactsController extends Controller
             'address' => $address,
             'user_id' => auth()->user()->id,
         ]);
-        return back();
+        return back()->with('alerting','Contact Information Added');
     }
 
     /**
@@ -96,7 +96,7 @@ class ContactsController extends Controller
             'email'=> $request->email,
             'contact_description'=> $request->contact_description,
         ]);
-        return redirect(route('about_me'));
+        return redirect(route('about_me'))->with('alerting','Contact Information Updated');
     }
 
     /**

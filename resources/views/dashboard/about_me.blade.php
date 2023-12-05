@@ -4,6 +4,13 @@
         <div class="content-wrapper">
             <div class="container">
                 <div class="row">
+                    <div class="col">
+                        <div class="page-description">
+                            <h1>About me</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-xl-6">
                         <div class="card widget widget-stats">
                             <div class="card-body">
@@ -156,7 +163,7 @@
                                 <h5>Your Education</h5>
                                 <table class="table table-bordered">
                                     <thead>
-                                        <tr>
+                                        <tr class="text-center">
                                             <th scope="col">Degree</th>
                                             <th scope="col">Year</th>
                                             <th scope="col">Skill</th>
@@ -165,19 +172,23 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($educations as $edu)
-                                            <tr>
+                                            <tr class="text-center">
                                                 <td>{{ $edu->degree_name }}</td>
                                                 <td>{{ $edu->year }}</td>
                                                 <td>{{ $edu->skill }}</td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-lg-6">
-                                                            <a style="text-decoration: none" class="btn-sm btn-primary"
+                                                            <a style="text-decoration: none" class="btn btn-primary"
                                                                 href="{{ route('education.edit', $edu->id) }}">Edit</a>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <a style="text-decoration: none" class="btn-sm btn-danger"
-                                                                href="#">Delete</a>
+                                                            <form action="{{ route('education.destroy', $edu->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger"
+                                                                    style="text-decoration: none">Delete</button>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -210,4 +221,25 @@
             </div>
         </div>
     </div>
+@endsection
+@section('alertSweet')
+    @if (session('alerting'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "{{ session('alerting') }}"
+            });
+        </script>
+    @endif
 @endsection

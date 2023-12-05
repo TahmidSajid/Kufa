@@ -4,6 +4,13 @@
         <div class="content-wrapper">
             <div class="container">
                 <div class="row">
+                    <div class="col">
+                        <div class="page-description">
+                            <h1>Portfolio Edit</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-xl-12">
                         <div class="card widget widget-stats">
                             <div class="card-body">
@@ -54,7 +61,7 @@
                                                 name="portfolio_image">
                                         </div>
                                         <div class="widget-stats-content">
-                                            <button type="submit" class="btn btn-primary mt-4">Add Portfolio</button>
+                                            <button type="submit" class="btn btn-primary mt-4">Update Portfolio</button>
                                         </div>
                                     </form>
                                 </div>

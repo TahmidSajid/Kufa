@@ -15,7 +15,7 @@ class AboutController extends Controller
         User::find(auth()->user()->id)->update([
             'introduction' => $request->edu_description,
         ]);
-        return back();
+        return back()->with('alerting','Education Description Added');
     }
 
 }

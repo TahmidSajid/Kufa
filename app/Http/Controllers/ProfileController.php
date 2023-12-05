@@ -25,7 +25,7 @@ class ProfileController extends Controller
         User::find(auth()->user()->id)->update([
             'profile_image' => $new_image,
         ]);
-        return back();
+        return back()->with('alerting','Profile picture updated');
     }
     public function password_change(Request $request){
 
@@ -39,6 +39,6 @@ class ProfileController extends Controller
                 'password' => Hash::make($request->password),
             ]);
         }
-        return back();
+        return back()->with('alerting','Password Changed');
     }
 }
