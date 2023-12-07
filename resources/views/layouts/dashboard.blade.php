@@ -52,7 +52,11 @@
                 <a href="index.html" class="logo-icon"><span class="logo-text">Neptune</span></a>
                 <div class="sidebar-user-switcher user-activity-online">
                     <a href="#">
-                        <img src="{{ asset('uploads/profile_photos') }}/{{ auth()->user()->profile_image }}">
+                        @if (auth()->user()->profile_image)
+                            <img src="{{ asset('uploads/profile_photos') }}/{{ auth()->user()->profile_image }}">
+                        @else
+                            <img src="{{ asset('dashboard-assets') }}/images/avatars/avatar.png">
+                        @endif
                         <span class="activity-indicator"></span>
                         <span class="user-info-text">{{ auth()->user()->name }}<br><span
                                 class="user-state-info">active</span></span>
@@ -141,9 +145,7 @@
                             <ul class="navbar-nav">
                                 <li class="nav-item hidden-on-mobile">
                                     <a class="nav-link language-dropdown-toggle" href="#" id="languageDropDown"
-                                        data-bs-toggle="dropdown"><img
-                                            src="{{ asset('dashboard-assets') }}/images/flags/us.png"
-                                            alt=""></a>
+                                        data-bs-toggle="dropdown"><i class="fa-solid fa-right-from-bracket" style="font-size: 25px"></i></a>
                                     <ul class="dropdown-menu dropdown-menu-end language-dropdown"
                                         aria-labelledby="languageDropDown">
                                         <li>
@@ -173,6 +175,7 @@
     <script src="{{ asset('dashboard-assets') }}/js/pages/dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('alertSweet')
+    @yield('alertlogin')
 </body>
 
 </html>

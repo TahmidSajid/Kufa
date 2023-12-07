@@ -18,7 +18,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($facts as $fact)
+                                        @forelse ($facts as $fact)
                                             <tr class="text-center">
                                                 <td>{{ $fact->fact_name }}</td>
                                                 <td>{{ $fact->fact_number }}</td>
@@ -26,19 +26,26 @@
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-xl">
-                                                            <a class="btn btn-primary" href="{{ route('fact.edit',$fact->id) }}">Edit</a>
+                                                            <a class="btn btn-primary"
+                                                                href="{{ route('fact.edit', $fact->id) }}">Edit</a>
                                                         </div>
                                                         <div class="col-xl">
-                                                            <form action="{{ route('fact.destroy',$fact->id) }}" method="POST">
+                                                            <form action="{{ route('fact.destroy', $fact->id) }}"
+                                                                method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-danger">Delete</button>
                                                             </form>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr class="text-center">
+                                                <td class="text-warning" colspan="7">No Fact Added yet</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                                 <div class="row">
@@ -47,14 +54,27 @@
                                         <div class="col-lg-4">
                                             <input type="text" class="form-control" name="fact_name"
                                                 placeholder="Fact name">
+                                            @error('fact_name')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-4">
                                             <input type="text" class="form-control" name="fact_number"
                                                 placeholder="Fact number">
+                                            @error('fact_number')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="text" class="form-control" name="fact_icon"
-                                                placeholder="Fact icon" id="icon-input" readonly style="background: transparent">
+                                            <input type="text" class="form-control d-none" name="fact_icon"
+                                                placeholder="Fact icon" id="icon-input" readonly
+                                                style="background: transparent">
+                                            <p class="text-center">
+                                                <i class="" style="font-size: 35px" id="icon-show"></i>
+                                            </p>
+                                            @error('fact_icon')
+                                                <div class="text text-danger mt-4 pb-4">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-6">
                                             <button class="btn btn-primary">Add Fact</button>

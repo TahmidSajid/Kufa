@@ -23,18 +23,30 @@
                                             <input class="form-control form-control-material" type="text"
                                                 placeholder="Enter Service Name" aria-label="default input example"
                                                 name="service_name" value="{{ $service->service_name }}">
+                                                @error('service_name')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="widget-stats-content">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Service Icon</label>
-                                            <input class="form-control form-control-material" type="text" id="icon-input"
+                                            <input class="form-control form-control-material d-none" type="text" id="icon-input"
                                                 name="service_icon" value="{{ $service->service_icon }}">
+                                            <p class="text-center">
+                                                <i class="{{ $service->service_icon }}" style="font-size: 35px" id="icon-show"></i>
+                                            </p>
+                                            @error('service_icon')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="widget-stats-content">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Service
                                                 Description</label>
                                             <textarea class="form-control form-control-material" type="text" placeholder="Enter Service Description"
                                                 aria-label="default input example" name="service_description" style="resize:none; height:120px">{{ $service->service_description }}</textarea>
-                                        </div>
+                                                @error('service_description')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
+                                            </div>
                                         <div class="widget-stats-content">
                                             <button type="submit" class="btn btn-primary mt-4">Update Service</button>
                                         </div>

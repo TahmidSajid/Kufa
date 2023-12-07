@@ -24,7 +24,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($brands as $brand)
+                                        @forelse ($brands as $brand)
                                             <tr class="text-center">
                                                 <td>{{ $brand->brand_name }}</td>
                                                 <td style="background-color:gray"><img
@@ -49,7 +49,11 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                            @empty
+                                            <tr class="text-center">
+                                                <td class="text-warning" colspan="3">No Brand Added yet</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                                 <div class="row">
@@ -66,10 +70,16 @@
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" name="brand_name"
                                                 placeholder="enter brand name">
+                                                @error('brand_name')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-6">
                                             <input type="file" class="form-control" name="brand_image"
                                                 placeholder="enter brand image">
+                                                @error('brand_image')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-6">
                                             <button class="btn btn-primary">Add Brand</button>

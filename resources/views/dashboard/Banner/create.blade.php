@@ -26,12 +26,18 @@
                                                 Description</label>
                                             <textarea class="form-control form-control-material" type="text" placeholder="Enter Banner Description"
                                                 aria-label="default input example" name="banner_description" style="resize:none; height:250px"></textarea>
+                                            @error('banner_description')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="widget-stats-content">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Banner Image</label>
                                             <input class="form-control form-control-material" type="file"
                                                 placeholder="Select Banner Image" aria-label="default input example"
                                                 name="banner_image">
+                                            @error('banner_image')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="widget-stats-content">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Status</label>

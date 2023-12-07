@@ -30,6 +30,11 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'service_name'=> 'required',
+            'service_icon'=> 'required',
+            'service_description'=> 'required',
+        ]);
         Services::create($request->except('_token')+[
             'user_id' => auth()->user()->id,
         ]);
@@ -59,6 +64,11 @@ class ServiceController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'service_name'=> 'required',
+            'service_icon'=> 'required',
+            'service_description'=> 'required',
+        ]);
         Services::where('id',$id)->update([
             'service_name'=> $request->service_name,
             'service_icon'=> $request->service_icon,

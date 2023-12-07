@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach ($testis as $testi)
+                    @forelse ($testis as $testi)
                         <div class="col-xl-4">
                             <div class="card text-center">
                                 <div class="card-body">
@@ -40,7 +40,17 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                        @empty
+                        <div class="row">
+                            <div class="col-xl-6 offset-xl-3">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h6 class="text-warning">No Testimonial added yet</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>

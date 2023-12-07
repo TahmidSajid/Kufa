@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach ($banners as $banner)
+                    @forelse ($banners as $banner)
                         <div class="col-xl-6">
                             <div class="card">
                                 <div class="card-body">
@@ -40,9 +40,9 @@
                                                                 {{ $banner->status }}
                                                             </h6>
                                                         @else
-                                                        <h6 class="text-danger">
-                                                            {{ $banner->status }}
-                                                        </h6>
+                                                            <h6 class="text-danger">
+                                                                {{ $banner->status }}
+                                                            </h6>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -53,7 +53,9 @@
                                                         </h5>
                                                     </th>
                                                     <td>
-                                                        <img src="{{ asset('uploads/banner_images') }}/{{ $banner->banner_image }}" alt="" srcset="" style="width: 300px; border-radius:15%">
+                                                        <img src="{{ asset('uploads/banner_images') }}/{{ $banner->banner_image }}"
+                                                            alt="" srcset=""
+                                                            style="width: 300px; border-radius:15%">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -61,10 +63,11 @@
                                     </div>
                                     <div class="row text-center">
                                         <div class="col-lg-6">
-                                            <a href="{{ route('banner.edit',$banner->id) }}" class="btn btn-primary" style="text-decoration: none">Edit</a>
+                                            <a href="{{ route('banner.edit', $banner->id) }}" class="btn btn-primary"
+                                                style="text-decoration: none">Edit</a>
                                         </div>
                                         <div class="col-lg-6">
-                                            <form action="{{ route('banner.destroy',$banner->id) }}" method="POST">
+                                            <form action="{{ route('banner.destroy', $banner->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger"
@@ -75,7 +78,15 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="col-xl-6 offset-xl-3">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h6 class="text-warning">No Banner added yet</h6>
+                                </div>
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>

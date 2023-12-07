@@ -28,6 +28,11 @@ class SocialsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'social_media_name'=> 'required',
+            'social_media_link'=> 'required',
+            'social_media_icon'=> 'required',
+        ]);
         Socials::create($request->except('_token')+[
             'user_id' => auth()->user()->id,
         ]);

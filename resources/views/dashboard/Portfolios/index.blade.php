@@ -27,7 +27,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($portfolios as $portfolio)
+                                        @forelse ($portfolios as $portfolio)
                                             <tr class="text-center">
                                                 <th scope="row">1</th>
                                                 <td>{{ $portfolio->category }}</td>
@@ -54,7 +54,11 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                            @empty
+                                            <tr class="text-center">
+                                                <td class="text-warning" colspan="7">No portfolio Added yet</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

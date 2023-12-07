@@ -72,6 +72,10 @@ class TestimonialsController extends Controller
      */
     public function update(Request $request, Testimonials $testimonial)
     {
+        $request->validate([
+            'customer_feedback'=> 'required',
+            'customer_name'=> 'required',
+        ]);
         Testimonials::where('id',$testimonial->id)->update([
             'customer_feedback'=> $request->customer_feedback,
             'customer_name' =>$request->customer_name,

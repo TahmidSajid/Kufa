@@ -26,7 +26,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($mails as $mail)
+                                        @forelse ($mails as $mail)
                                             <tr class="text-center">
                                                 <th scope="row">1</th>
                                                 <td>{{ $mail->name }}</td>
@@ -48,7 +48,11 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                            @empty
+                                            <tr class="text-center">
+                                                <td class="text-warning" colspan="6">No one sent email yet</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

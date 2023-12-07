@@ -24,25 +24,27 @@ class FrontendController extends Controller
     public function fronend_page(){
         if(Auth::check()){
 
+            $banner = Banners::where('user_id',auth()->user()->id)->where('status','active')->get();
+            $socials = Socials::where('user_id',auth()->user()->id)->get();
+            $educations = Educations::where('user_id',auth()->user()->id)->get();
+            $services = Services::where('user_id',auth()->user()->id)->get();
+            $portfolios = Portfolios::where('user_id',auth()->user()->id)->get();
+            $facts = Facts::where('user_id',auth()->user()->id)->get();
+            $testimonials = Testimonials::where('user_id',auth()->user()->id)->get();
+            $brands = Brands::where('user_id',auth()->user()->id)->get();
             $contact_info = Contacts::where('user_id',auth()->user()->id)->first();
             if($contact_info){
-                $city = explode(",",$contact_info->address)[1];
+            $city = explode(",",$contact_info->address)[1];
             }
             else{
                 $city = false;
             }
-            return view('frontend.index')->with([
-                'banner' => Banners::where('user_id',auth()->user()->id)->where('status','active')->get(),
-                'socials' => Socials::where('user_id',auth()->user()->id)->get(),
-                'educations' => Educations::where('user_id',auth()->user()->id)->get(),
-                'services' => Services::where('user_id',auth()->user()->id)->get(),
-                'portfolios' => Portfolios::where('user_id',auth()->user()->id)->get(),
-                'facts' => Facts::where('user_id',auth()->user()->id)->get(),
-                'testimonials' => Testimonials::where('user_id',auth()->user()->id)->get(),
-                'brands' => Brands::where('user_id',auth()->user()->id)->get(),
-                'contact_info' => Contacts::where('user_id',auth()->user()->id)->first(),
-                'city' => $city,
+            if($banner && $socials && $educations && $services && $portfolios && $facts && $testimonials && $brands && $contact_info)
+            return view('frontend.index',compact(['banner','socials','educations','services','portfolios','facts','testimonials','brands','contact_info','city']))->with([
             ]);
+            else{
+                return redirect(route('home'))->with('login_alert','Need to fill out all the information first');
+            }
         }
         else{
             return redirect(route('login'));
@@ -56,6 +58,11 @@ class FrontendController extends Controller
         ]);
     }
     public function contact_email(Request $request){
+        $request->validate([
+            'name'=> 'required',
+            'email'=> 'required',
+            'message'=> 'required',
+        ]);
         Mail::to($request->email)->send(new ContactsMail($request));
         Emails::create($request->except('_token')+[
             'user_id' => auth()->user()->id,

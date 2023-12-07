@@ -67,16 +67,26 @@
                     </div>
                     <div class="col-xl-3">
                         <div class="card">
-                            <img src="{{ asset('uploads/profile_photos') }}/{{ auth()->user()->profile_image }}"
-                                class="card-img-top" alt="...">
+                            @if (auth()->user()->profile_image)
+                                <img src="{{ asset('uploads/profile_photos') }}/{{ auth()->user()->profile_image }}"
+                                    class="card-img-top" alt="...">
+                            @else
+                                <img src="{{ asset('dashboard-assets') }}/images/cards/card.png" class="card-img-top"
+                                    alt="...">
+                            @endif
                             <div class="card-body">
-                                <h5 class="card-title">Upload current image</h5>
+                                @if (auth()->user()->profile_image)
+                                    <h5 class="card-title">Your current profile picture</h5>
+                                @endif
                                 <p class="card-text">Upload your photo from below down</p>
                                 <form class="row g-3" action="{{ route('profile_image') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="col-auto">
                                         <input type="file" class="form-control" name="profile_image">
+                                        @error('profile_image')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-success mb-3">Upload photo</button>
@@ -89,30 +99,36 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="text-center">Add Social Accounts</h5>
-                                @foreach ($socials as $social)
-                                <div class="card widget widget-stats">
-                                    <div class="card-body">
-                                        <div class="widget-stats-container d-flex align-items-center">
-                                            <div class="widget-stats-icon widget-stats-icon-primary">
-                                                <i class="{{ $social->social_media_icon }}"></i>
-                                            </div>
-                                            <div class="widget-stats-content flex-fill">
-                                                <span class="widget-stats-title">User Name</span>
-                                                <span class="widget-stats-amount"
-                                                    style="font-size: 15px">{{ $social->social_media_name }}</span>
-                                                <span class="widget-stats-info">{{ Str::limit($social->social_media_link, 8) }}</span>
-                                            </div>
-                                            <div class="widget-stats-content">
-                                                <form action="{{ route('social.destroy',$social->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                                </form>
+                                @forelse ($socials as $social)
+                                    <div class="card widget widget-stats">
+                                        <div class="card-body">
+                                            <div class="widget-stats-container d-flex align-items-center">
+                                                <div class="widget-stats-icon widget-stats-icon-primary">
+                                                    <i class="{{ $social->social_media_icon }}"></i>
+                                                </div>
+                                                <div class="widget-stats-content flex-fill">
+                                                    <span class="widget-stats-title">User Name</span>
+                                                    <span class="widget-stats-amount"
+                                                        style="font-size: 15px">{{ $social->social_media_name }}</span>
+                                                    <span
+                                                        class="widget-stats-info">{{ Str::limit($social->social_media_link, 25) }}</span>
+                                                </div>
+                                                <div class="widget-stats-content">
+                                                    <form action="{{ route('social.destroy', $social->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                @endforeach
+                                @empty
+                                    <div class="text-center">
+                                        <h6 class="text-warning mt-4 mb-4">No Social Media added yet</h6>
+                                    </div>
+                                @endforelse
                                 <div class="row">
                                     <form action="{{ route('social.store') }}" class="row g-3" method="POST">
                                         @csrf
@@ -120,11 +136,17 @@
                                             <label for="exampleInputEmail1" class="form-label mt-4">Social Name</label>
                                             <input type="text" class="form-control" name="social_media_name"
                                                 placeholder="Social Media Name">
+                                            @error('social_media_name')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-4">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Social link</label>
                                             <input type="text" class="form-control" name="social_media_link"
                                                 placeholder="Social Media Link">
+                                            @error('social_media_link')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-4 ">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Social Icon</label>
@@ -133,6 +155,9 @@
                                             <p class="text-center">
                                                 <i class="" style="font-size: 35px" id="icon-show"></i>
                                             </p>
+                                            @error('social_media_icon')
+                                                <div class="text-danger mt-4 pt-4">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-6">
                                             <button class="btn btn-primary">Add Social Media Link</button>
@@ -151,6 +176,17 @@
     </div>
 @endsection
 @section('alertSweet')
+    @if (session('login_alert'))
+        <script>
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "{{ session('login_alert') }}",
+            });
+        </script>
+    @endif
+@endsection
+@section('alertlogin')
     @if (session('alerting'))
         <script>
             const Toast = Swal.mixin({

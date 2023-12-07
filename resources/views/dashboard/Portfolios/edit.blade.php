@@ -29,12 +29,18 @@
                                             <input class="form-control form-control-material" type="text"
                                                 placeholder="Enter Portfolio Category" aria-label="default input example"
                                                 name="category" value="{{ $portfolio->category }}">
+                                            @error('category')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="widget-stats-content">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Portfolio Name</label>
                                             <input class="form-control form-control-material" type="text"
                                                 placeholder="Enter Portfolio Name" aria-label="default input example"
                                                 name="portfolio_name" value="{{ $portfolio->portfolio_name }}">
+                                            @error('portfolio_name')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="widget-stats-content">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Portfolio
@@ -42,12 +48,18 @@
                                             <input class="form-control form-control-material" type="text"
                                                 placeholder="Enter Portfolio Heading" aria-label="default input example"
                                                 name="portfolio_heading" value="{{ $portfolio->portfolio_heading }}">
+                                            @error('portfolio_heading')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="widget-stats-content">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Portfolio
                                                 Description</label>
                                             <textarea class="form-control form-control-material" type="text" placeholder="Enter Portfolio Description"
                                                 aria-label="default input example" name="portfolio_description" style="resize:none; height:250px">{{ $portfolio->portfolio_description }}</textarea>
+                                            @error('portfolio_description')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="widget-stats-content">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Portfolio Old Image :

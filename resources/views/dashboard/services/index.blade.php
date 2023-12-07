@@ -11,29 +11,41 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach ($services as $service)
-                    <div class="col-xl-4">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $service->service_name }}</h5>
-                                <i class="{{ $service->service_icon }} mt-4 mb-4" style="font-size: 50px"></i>
-                                <p class="card-text">{{ $service->service_description }}</p>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <a href="{{ route('services.edit',$service->id) }}" class="btn btn-primary" style="text-decoration: none">Edit</a>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <form action="{{ route('services.destroy',$service->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" style="text-decoration: none">Delete</button>
-                                        </form>
+                    @forelse ($services as $service)
+                        <div class="col-xl-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $service->service_name }}</h5>
+                                    <i class="{{ $service->service_icon }} mt-4 mb-4" style="font-size: 50px"></i>
+                                    <p class="card-text">{{ $service->service_description }}</p>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <a href="{{ route('services.edit', $service->id) }}" class="btn btn-primary"
+                                                style="text-decoration: none">Edit</a>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <form action="{{ route('services.destroy', $service->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"
+                                                    style="text-decoration: none">Delete</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    @endforeach
+                        @empty
+                        <div class="row">
+                            <div class="col-xl-6 offset-xl-3">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h6 class="text-warning">No Service added yet</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforelse
                     <div class="col-xl-4">
                         <div class="card widget widget-stats">
                             <div class="card-body">
@@ -49,17 +61,30 @@
                                             <input class="form-control form-control-material" type="text"
                                                 placeholder="Enter Service Name" aria-label="default input example"
                                                 name="service_name">
+                                            @error('service_name')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="widget-stats-content">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Service Icon</label>
-                                            <input class="form-control form-control-material" type="text" id="icon-input"
-                                                name="service_icon" readonly style="background: transparent">
+                                            <input class="form-control form-control-material d-none" type="text"
+                                                id="icon-input" name="service_icon" readonly
+                                                style="background: transparent">
+                                            <p class="text-center">
+                                                <i class="" style="font-size: 35px" id="icon-show"></i>
+                                            </p>
+                                            @error('service_icon')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="widget-stats-content">
                                             <label for="exampleInputEmail1" class="form-label mt-4">Service
                                                 Description</label>
                                             <textarea class="form-control form-control-material" type="text" placeholder="Enter Service Description"
                                                 aria-label="default input example" name="service_description" style="resize:none; height:120px"></textarea>
+                                            @error('service_description')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="widget-stats-content">
                                             <button type="submit" class="btn btn-primary mt-4">Add Service</button>

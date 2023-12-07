@@ -15,23 +15,36 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <form action="{{ route('fact.update',$fact->id) }}" class="row g-3" method="POST">
+                                    <form action="{{ route('fact.update', $fact->id) }}" class="row g-3" method="POST">
                                         @csrf
                                         @method('PUT')
                                         <div class="col-lg-4">
                                             <label for="" class="form-label">Fact name</label>
                                             <input type="text" class="form-control" name="fact_name"
                                                 placeholder="Fact name" value="{{ $fact->fact_name }}">
+                                            @error('fact_name')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-4">
                                             <label for="" class="form-label">Fact number</label>
                                             <input type="text" class="form-control" name="fact_number"
                                                 placeholder="Fact number" value="{{ $fact->fact_number }}">
+                                            @error('fact_number')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-4">
                                             <label for="" class="form-label">Fact icon</label>
-                                            <input type="text" class="form-control" name="fact_icon"
+                                            <input type="text" class="form-control d-none" name="fact_icon"
                                                 placeholder="Fact icon" id="icon-input" value="{{ $fact->fact_icon }}">
+                                            <p class="text-center">
+                                                <i class="{{ $fact->fact_icon }}" style="font-size: 35px"
+                                                    id="icon-show"></i>
+                                            </p>
+                                            @error('fact_icon')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-6">
                                             <button class="btn btn-primary">Update Fact</button>

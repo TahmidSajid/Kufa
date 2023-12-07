@@ -258,8 +258,17 @@
                             <form action="{{ route('contact_email') }}" method="POST">
                                 @csrf
                                 <input type="text" placeholder="your name *" name="name">
+                                @error('name')
+                                    <div class="text text-danger">{{ $message }}</div>
+                                @enderror
                                 <input type="email" placeholder="your email *" name="email">
+                                @error('email')
+                                    <div class="text text-danger">{{ $message }}</div>
+                                @enderror
                                 <textarea name="message" id="message" placeholder="your message *" name="message"></textarea>
+                                @error('message')
+                                    <div class="text text-danger">{{ $message }}</div>
+                                @enderror
                                 <button type="submit" class="btn">SEND</button>
                             </form>
                         </div>

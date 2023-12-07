@@ -171,7 +171,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($educations as $edu)
+                                        @forelse ($educations as $edu)
                                             <tr class="text-center">
                                                 <td>{{ $edu->degree_name }}</td>
                                                 <td>{{ $edu->year }}</td>
@@ -193,7 +193,13 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                        <tr class="text-center">
+                                            <td colspan="4">
+                                                <h6 class="text-warning">No Degree added yet</h6>
+                                            </td>
+                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                                 <div class="row">
